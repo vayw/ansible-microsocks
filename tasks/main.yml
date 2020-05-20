@@ -1,0 +1,39 @@
+---
+- name: create bin directory
+  file:
+    path: "{{ microsocks_bin_dir }}"
+    owner: root
+    group: root
+    mode: '0755'
+    state: directory
+
+- name: copy binary
+  copy:
+    src: microsocks
+    dest: "{{ microsocks_bin }}"
+    owner: root
+    group: root
+    mode: '0744'
+
+- name: enable access to proxy
+  firewalld:
+    port: "{{ microsocks_port }}/tcp"
+    permanent: yes
+    state: enabled
+    immediate: yes
+
+- name: render service file
+  template:
+    src: microsocks.service.j2
+    dest: "{{ microsocks_service_file }}"
+    owner: root
+    group: root
+    mode: '644'
+  notify:
+    - reload_systemd
+
+- name: enable microsocks service
+  systemd:
+    name: "{{ microsocks_service_name }}"
+    enabled: yes
+
