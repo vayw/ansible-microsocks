@@ -1,7 +1,7 @@
 ---
 # defaults file for microsocks
 microsocks_port: 10111
-microsocks_bin_dir: "/opt/microsocks"
+microsocks_bin_dir: "/usr/local/bin"
 microsocks_bin: "{{ microsocks_bin_dir }}/microsocks"
 microsocks_service_name: "microsocks"
 microsocks_service_file: "/etc/systemd/system/{{ microsocks_service_name }}.service"

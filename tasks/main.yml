@@ -13,7 +13,7 @@
     dest: "{{ microsocks_bin }}"
     owner: root
     group: root
-    mode: '0744'
+    mode: '0555'
 
 - name: enable access to proxy
   firewalld:
@@ -32,8 +32,11 @@
   notify:
     - reload_systemd
 
+- name: Flush handlers
+  meta: flush_handlers
+
 - name: enable microsocks service
   systemd:
     name: "{{ microsocks_service_name }}"
     enabled: yes
-
+    state: started
