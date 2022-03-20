@@ -1,5 +1,10 @@
 ---
-# handlers file for pdns
-- name: reload_systemd
+# handlers file for microsocks
+- name: microsocks_reload_systemd
   systemd:
     daemon_reload: yes
+
+- name: microsocks_reload_service
+  systemd:
+    name: "{{ microsocks_service_name }}"
+    state: restarted

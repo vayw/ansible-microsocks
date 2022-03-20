@@ -5,3 +5,4 @@ microsocks_bin_dir: "/usr/local/bin"
 microsocks_bin: "{{ microsocks_bin_dir }}/microsocks"
 microsocks_service_name: "microsocks"
 microsocks_service_file: "/etc/systemd/system/{{ microsocks_service_name }}.service"
+microsocks_firewalld_zone: internal

@@ -7,7 +7,10 @@ After=network-online.target
 [Service]
 User=nobody
 Type=simple
-ExecStart={{ microsocks_bin }} -i {{ microsocks_listen_ip | default(ansible_default_ipv4.address) }} -u {{ microsocks_user }} -P {{ microsocks_password }} -p {{ microsocks_port }} -b {{ microsocks_bind_ip | default(ansible_default_ipv4.address) }}
+ExecStart={{ microsocks_bin }} -i {{ microsocks_listen_ip | default(ansible_default_ipv4.address) }} \
+             -p {{ microsocks_port }} -b {{ microsocks_bind_ip | default(ansible_default_ipv4.address) }}
+             {%- if microsocks_user is defined and microsocks_password is defined %} -u {{ microsocks_user }} -P {{ microsocks_password }} {% endif %}
+
 Restart=on-failure
 RestartSec=3
 StartLimitInterval=30

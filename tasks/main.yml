@@ -21,6 +21,7 @@
     permanent: yes
     state: enabled
     immediate: yes
+    zone: "{{ microsocks_firewalld_zone }}"
 
 - name: render service file
   template:
@@ -30,7 +31,8 @@
     group: root
     mode: '644'
   notify:
-    - reload_systemd
+    - microsocks_reload_systemd
+    - microsocks_reload_service
 
 - name: Flush handlers
   meta: flush_handlers
